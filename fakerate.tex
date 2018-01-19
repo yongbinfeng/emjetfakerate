@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage[]{inputenc,amsmath}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{setspace}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\title{Fakerate and Uncertainty Calculation}
+\author{}
+\date{\today{}}
+
+\begin{document}
+\maketitle
+
+\begin{flushleft}
+
+Define the $\epsilon_{f1}$ and $\epsilon_{f2}$ as the fakerates in sample 1 and sample 2 in $\gamma+$jets, $f_{b1}$ and $f_{b2}$ are the B jet fractions in these two samples, $\epsilon_{fb}$ and $\epsilon_{fl}$ are the fakerates we need to calculate. We have
+
+\begin{equation}
+\begin{pmatrix} \epsilon_{f1} \\ \epsilon_{f2} \end{pmatrix}=\begin{pmatrix} f_{b1} & (1-f_{b1}) \\ f_{b2} & (1-f_{b2}) \end{pmatrix}\cdot \begin{pmatrix}\epsilon_{fb} \\ \epsilon_{fl} \end{pmatrix} 
+\end{equation}
+
+From this, we get
+\begin{equation}
+\begin{pmatrix} \epsilon_{fb} \\ \epsilon_{fl} \end{pmatrix} = \begin{pmatrix} \frac{1-f_{b2}}{f_{b1}-f_{b2}} & \frac{-(1-f_{b1})}{f_{b1}-f_{b2}} \\ \frac{-f_{b2}}{f_{b1}-f_{b2}} & \frac{f_{b1}}{f_{b1}-f_{b2}}\end{pmatrix}\cdot \begin{pmatrix} \epsilon_{f1} \\ \epsilon_{f2} \end{pmatrix}
+\end{equation}
+Assuming there is no correlation between $\epsilon_{f1}$, $\epsilon_{f2}$, $f_{b1}$ and $f_{b2}$, the uncertainties of the calculated $\epsilon_{fb}$ and $\epsilon_{fl}$ will be
+\begin{align*}
+\delta^2_{\epsilon_{fb}}&=\frac{1}{(f_{b1}-f_{b2})^2}\Bigg\{(1-f_{b2})^2\bigg[\delta^2_{\epsilon_1}+\frac{(\epsilon_{f1}-\epsilon_{f2})^2}{(f_{b1}-f_{b2})^2}\cdot\delta^2_{f_{b1}}\bigg]+(1-f_{b1})^2\bigg[\delta^2_{\epsilon_2}+\frac{(\epsilon_{f1}-\epsilon_{f2})^2}{(f_{b1}-f_{b2})^2}\cdot\delta^2_{f_{b2}}\bigg]\Bigg\}\\
+\delta^2_{\epsilon_{fl}}&=\frac{1}{(f_{b1}-f_{b2})^2}\Bigg\{f^2_{b2}\bigg[\delta^2_{\epsilon_{f1}}+\frac{(\epsilon_{f1}-\epsilon_{f2})^2}{(f_{b1}-f_{b2})^2}\cdot\delta^2_{f_{b1}}\bigg]+f^2_{b1}\bigg[\delta^2_{\epsilon_{f2}}+\frac{(\epsilon_{f1}-\epsilon_{f2})^2}{(f_{b1}-f_{b2})^2}\delta^2_{f_{b2}}\bigg]\Bigg\}
+\end{align*}
+
+\vspace{5mm}
+
+When using the calculated $\epsilon_{fb}$ and $\epsilon_{fl}$  to predict background, what we are actually using is the fakerate averaged by the b jet fraction $f_b$ in QCD(0tag or 1tag), i.e.
+\begin{align*}
+\epsilon_{f,final} &= f_{b}\epsilon_{fb}+(1-f_{b})\epsilon_{fl}\\
+                            &=\frac{(f_{b}-f_{b2})\epsilon_{f1}+(f_{b1}-f_{b})\epsilon_{f2}}{f_{b1}-f_{b2}}\numberthis
+\end{align*}
+Similarly, the uncertainty will be
+\begin{equation}
+\delta^2_{\epsilon_{f,final}}=\frac{A}{(f_{b1}-f_{b2})^2}
+\end{equation}
+where A is
+\begin{align*}
+A=&(f_{b}-f_{b2})^2\delta^2_{\epsilon{f1}}+(f_{b1}-f_{b})^2\delta^2_{\epsilon_{f2}}+(\epsilon_{f1}-\epsilon_{f2})^2\delta^2_{f_{b}}\\
+     &+\frac{(f_{b}-f_{b2})^2(\epsilon_{f2}-\epsilon_{f1})^2}{(f_{b1}-f_{b2})^2}+\frac{(f_{b}-f_{b1})^2(\epsilon_{f1}-\epsilon_{f2})^2}{(f_{b1}-f_{b2})^2} \numberthis
+\end{align*}
+
+\end{flushleft}
+\end{document}

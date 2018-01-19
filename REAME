@@ -1,0 +1,7 @@
+this is for the fakerate and uncertainty calculation
+
+we calculate the fakerate for b jets and light jets using Sample 1 and Sample 2 from GJet MC/Data. The formula and uncertainty can be found in FrHistoCal in CalFR.cpp
+
+for the background prediction, what we are actually using is the weighted fakerate of b jets and light jets, weighted with b jet fractions in QCD 0tag/1tag. And the calculation of weighted fakerate can be found in FrHistoCalTot in CalFR.cpp
+
+The fakerate.pdf contains detailed calculation of the fakerate and uncertainty
