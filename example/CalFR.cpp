@@ -1,4 +1,3 @@
-#include "CalFR.h"
 
 double Pow2(double x) { return TMath::Power(x, 2.0); }
 
@@ -41,6 +40,9 @@ void FrHistoCal(TH1F* hfrac1, TH1F* hfrac2, TH1F* hfr1, TH1F* hfr2, TH1F* hfb, T
     double err_FR_b  = ( norm*( fl2*FR1 - fl1*FR2)>=0.0 ?  TMath::Sqrt(Pow2(coef_b_fb1*err_fb1) + Pow2(coef_b_fb2*err_fb2) + Pow2(coef_b_FR1*err_FR1) + Pow2(coef_b_FR2*err_FR2)) : 0.0 );
     // error for fakerate of light jets
     double err_FR_l  = ( norm*(-fb2*FR1 + fb1*FR2)>=0.0 ?  TMath::Sqrt(Pow2(coef_l_fb1*err_fb1) + Pow2(coef_l_fb2*err_fb2) + Pow2(coef_l_FR1*err_FR1) + Pow2(coef_l_FR2*err_FR2)) : 0.0 );
+
+    FR_b = ( FR_b >= 0.0 ? FR_b : 0.0 );
+    FR_l = ( FR_l >= 0.0 ? FR_l : 0.0 );
 
     hfb->SetBinContent( i, FR_b);   hfb->SetBinError( i, err_FR_b);
     hfl->SetBinContent( i, FR_l);   hfl->SetBinError( i, err_FR_l);
@@ -85,12 +87,6 @@ void FrHistoCalTot(TH1F* hfrac1, TH1F* hfrac2, TH1F* hfr1, TH1F* hfr2, double fb
 
     // uncertainty of the averaged fakerate
     double err_FRtot = TMath::Sqrt(Pow2(coef_FR1*err_FR1) + Pow2(coef_FR2*err_FR2) + Pow2(coef_fbtot*err_fbtot) + Pow2(coef_fb1*err_fb1) + Pow2(coef_fb2*err_fb2));
-
-
-    // if FRtot<0.0, it means the FR1 and FR2 are really close. Simply use the average then.
-    //    this happens very occasionally, and only in the very low statistics bins, but
-    //    still might need further discussion
-    if( FRtot<0.0 ) FRtot = (FR1 + FR2) /2.0;
 
     hftot->SetBinContent(i, FRtot); hftot->SetBinError(i, err_FRtot);
    
