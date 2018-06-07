@@ -8,4 +8,4 @@ The fakerate.pdf contains detailed calculation of the fakerate and uncertainty
 
 One example (Cut1) is provided under the example directory. To run it:
    cd example
-   root -l test.cpp 
+   root -l example.cpp 
